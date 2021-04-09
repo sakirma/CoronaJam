@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,5 +24,17 @@ public class Player : MonoBehaviour
     public void StartGameInput(InputAction.CallbackContext context)
     {
         GameController.INSTANCE.StartGameInput();
+    }
+
+    private void Start()
+    {
+        GetComponent<PlayerTemperature>().OnPlayerDied(PlayerDied);
+    }
+
+    private void PlayerDied(string name)
+    {
+        Debug.Log(name + " Died!");
+        _alive = false;
+        Destroy(gameObject);
     }
 }

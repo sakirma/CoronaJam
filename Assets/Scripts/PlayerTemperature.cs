@@ -70,7 +70,6 @@ public class PlayerTemperature : MonoBehaviour
             {
                 var name = GetComponent<Player>().Name;
                 _onPlayerDied.Invoke(name);
-                Debug.Log(name + " Died!");
                 yield break;
             }
             yield return new WaitForSeconds(1f);
