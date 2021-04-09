@@ -291,7 +291,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pushDistance: 2
-  pushForce: 10
+  pushForce: 100
+  coolDownTime: 2
 --- !u!1 &4810416012338368993
 GameObject:
   m_ObjectHideFlags: 0

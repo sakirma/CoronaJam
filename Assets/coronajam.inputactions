@@ -19,7 +19,7 @@
                     "id": "77fc7f1b-2db3-47b7-b094-3906ea84c3c1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "StartGame",
@@ -165,17 +165,6 @@
                 },
                 {
                     "name": "",
-                    "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Push",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -198,22 +187,11 @@
                 },
                 {
                     "name": "",
-                    "id": "ee3d0cd2-254e-47a7-a8cb-bc94d9658c54",
-                    "path": "<Joystick>/trigger",
-                    "interactions": "",
+                    "id": "7d2ab877-43dc-44bf-ae34-0421375fc5f6",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Press",
                     "processors": "",
-                    "groups": "Joystick",
-                    "action": "Push",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8255d333-5683-4943-a58a-ccb207ff1dce",
-                    "path": "<XRController>/{PrimaryAction}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
+                    "groups": "Gamepad",
                     "action": "Push",
                     "isComposite": false,
                     "isPartOfComposite": false
