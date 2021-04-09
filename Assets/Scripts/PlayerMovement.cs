@@ -36,17 +36,21 @@ public class PlayerMovement : MonoBehaviour
     // private float deadLock = 0.5f;
     public void FixedUpdate()
     {
-        Vector3 targetDirection = _targetDirection + transform.position;
-        _directionSphere.transform.position = targetDirection;
-        if (targetDirection.x <= 0.2f && targetDirection.z <= 0.2f && targetDirection.x >= -0.2f &&
-            targetDirection.z >= -0.2f)
+        if (_targetDirection.x <= 0.2f && _targetDirection.z <= 0.2f && _targetDirection.x >= -0.2f &&
+            _targetDirection.z >= -0.2f)
+        {
             return;
-        
-        
-        Quaternion qTo = Quaternion.LookRotation(targetDirection - transform.position);
+        }
+
+        Transform selfTransforms = transform;
+        Vector3 position = selfTransforms.position;
+        Vector3 targetDirection = _targetDirection + position;
+        _directionSphere.transform.position = targetDirection;
+
+        _rigidbody.AddForce(selfTransforms.forward * 100);
+
+        Quaternion qTo = Quaternion.LookRotation(targetDirection - position);
         qTo = Quaternion.Slerp(transform.rotation, qTo, 0.1f);
         _rigidbody.MoveRotation(qTo);
-
-        _rigidbody.AddForce(transform.forward * 100);
     }
 }
