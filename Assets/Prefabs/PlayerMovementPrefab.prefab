@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4810416011863770518}
   - component: {fileID: 4810416011863770519}
   - component: {fileID: 4810416011863770521}
+  - component: {fileID: -8075355724888100375}
   m_Layer: 0
   m_Name: PlayerMovementPrefab
   m_TagString: Untagged
@@ -130,7 +131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  force: 100
 --- !u!114 &4810416011863770521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,11 +216,40 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: cb1e8050-5c36-4926-b6a7-212749b63318
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8075355724888100375}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: StartGameInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 799e6b11-509d-4862-bfc0-706837240f07
+    m_ActionName: Player/StartGame[/XInputControllerWindows/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-8075355724888100375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4810416011863770512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8200bbf6ccb494159a654e2234b55050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
 --- !u!1 &4810416012338368993
 GameObject:
   m_ObjectHideFlags: 0
