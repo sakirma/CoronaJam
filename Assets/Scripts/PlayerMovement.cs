@@ -14,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
     private GameObject _directionSphere = null;
 
     private Vector3 _targetDirection;
-    
+    private Vector3 _lerpValue;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -22,33 +23,26 @@ public class PlayerMovement : MonoBehaviour
         _directionSphere.GetComponent<MeshRenderer>().material.color = Color.red;
         _directionSphere.GetComponent<SphereCollider>().isTrigger = true;
     }
+    
+    // Input System
+    // ReSharper disable once UnusedMember.Global
+    public void MoveInput(InputAction.CallbackContext context)
+    {
+        Vector2 directionInput = context.ReadValue<Vector2>();
+        Vector3 currentPosition = transform.position;
+
+        _targetDirection = new Vector3(directionInput.x, 0, directionInput.y) + currentPosition;
+        _directionSphere.transform.position = _targetDirection;
+    }
 
     public void Update()
     {
-        // Vector3 directionInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        // Vector3 currentPosition = transform.position;
-        
-        // Vector3 targetDirection = directionInput + currentPosition;
-        // _directionSphere.transform.position = targetDirection;
-        
-        // _targetDirection = Vector3.;
+        // _lerpValue = Vector3.Lerp();
     }
 
-    public void HorizontalInput(InputAction.CallbackContext context)
-    {
-        Debug.Log("Fire");
-    }
-
-    public void VerticalInput(InputAction.CallbackContext context)
-    {
-        Debug.Log("Fire verical");
-    }
-    
     public void FixedUpdate()
     {
-
         // _rigidbody.AddRelativeForce(targetVelocity * speed);
         // _rigidbody.AddRelativeTorque(torqueVelocity, ForceMode.VelocityChange);
-
     }
 }
