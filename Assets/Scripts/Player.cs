@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private string _name;
+    [SerializeField] private string _name = "Player";
     public string Name
     {
         get => _name;
