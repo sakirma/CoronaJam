@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.AddForce(selfTransforms.forward * (speed * _axisMag), ForceMode.Acceleration);
 
         Quaternion qTo = Quaternion.LookRotation(targetDirection - position);
-        qTo = Quaternion.Slerp(transform.rotation, qTo, 0.1f);
+        qTo = Quaternion.Slerp(transform.rotation, qTo, 0.2f);
         _rigidbody.MoveRotation(qTo);
     }
 }
