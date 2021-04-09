@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
@@ -24,15 +25,25 @@ public class PlayerMovement : MonoBehaviour
 
     public void Update()
     {
-        Vector3 directionInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Vector3 currentPosition = transform.position;
+        // Vector3 directionInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        // Vector3 currentPosition = transform.position;
         
-        Vector3 targetDirection = directionInput + currentPosition;
-        _directionSphere.transform.position = targetDirection;
+        // Vector3 targetDirection = directionInput + currentPosition;
+        // _directionSphere.transform.position = targetDirection;
         
         // _targetDirection = Vector3.;
     }
 
+    public void HorizontalInput(InputAction.CallbackContext context)
+    {
+        Debug.Log("Fire");
+    }
+
+    public void VerticalInput(InputAction.CallbackContext context)
+    {
+        Debug.Log("Fire verical");
+    }
+    
     public void FixedUpdate()
     {
 
