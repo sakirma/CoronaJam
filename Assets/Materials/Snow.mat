@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_New Shader Graph
-  m_Shader: {fileID: -6465566751694194690, guid: 83e5c6523c5edea4bb9fcdd379532c72, type: 3}
+  m_Name: Snow
+  m_Shader: {fileID: -6465566751694194690, guid: d26f6d1c3841b6047beaeb9e61f8b491, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -20,19 +20,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _SampleTexture2D_75379854d2844616866bfc0ef07d4254_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 0af8ec207e31f244f96e4ca12ae8be6c, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_8baf57e31b6a49d5b6ce13440be80b6e_Texture_1:
-        m_Texture: {fileID: 2800000, guid: b93a4a5a8cc030b43bdd49bbf82a7190, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3dadfc69b16e29e4e838750874f8ff21, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_98b2ac913c764dd09f6b9c2027c166df_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 43834fafa9dd6bf4c8c8fe045d5db8b9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6a619b87dab52f84a97761056e4da055, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_a5d9464298f24558af0624d05e66343d_Texture_1:
-        m_Texture: {fileID: 2800000, guid: d95cc3c079c8d28419e7503fb165c1fc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1a1ddf0b0c6eca141ba2869b75c46ac8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -48,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1cd5ec87d46e4b86af8520e2f5fb37a6: 1
-    - Vector1_704b68bb97a84b1b97e594a320b27abd: 0
-    m_Colors: []
+    - Vector1_1cd5ec87d46e4b86af8520e2f5fb37a6: 2
+    m_Colors:
+    - Vector2_a781b488cd584e14a1c360246e98039f: {r: 8, g: 8, b: 8, a: 0}
   m_BuildTextureStacks: []
