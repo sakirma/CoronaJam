@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
@@ -12,6 +13,8 @@ public class GameController : MonoBehaviour
     
     // playerlist
     private List<Player> _players = new List<Player>();
+
+    public List<Player> GetPlayers() { return _players;}
     
     // keep track of active players (connected controllers)
     private PlayerInputManager _piManager; 
@@ -23,6 +26,9 @@ public class GameController : MonoBehaviour
     // settings
     [SerializeField] private float _gameOverWaitTime = 5f;
     [SerializeField] private int _minPlayers = 2;
+
+    private UnityEvent _onGameStopped;
+    private UnityEvent _onGameStarted;
     
     // Start is called before the first frame update
     void Start()
@@ -35,27 +41,39 @@ public class GameController : MonoBehaviour
         
         _piManager.onPlayerJoined += OnPlayerJoined;
         _piManager.onPlayerLeft += OnPlayerLeft;
+
+        _onGameStopped = new UnityEvent();
+        _onGameStarted = new UnityEvent();
     }
 
     private void OnPlayerJoined(PlayerInput pi)
     {
-        _players.Add(pi.GetComponent<Player>());
+        var player = pi.GetComponent<Player>();
+    
+        _onGameStarted.AddListener(player.EnableTemperature);
+        _onGameStopped.AddListener(player.DisableTemperature);
+        
+        _players.Add(player);
         Debug.Log("Player joined, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
 
-        if (_players.Count() >= _minPlayers)
+        if (_players.Count >= _minPlayers)
         {
             _state = GameState.WAITING_FOR_START;
         }
     }
-    
+
     private void OnPlayerLeft(PlayerInput pi)
     {
-        _players.Remove(pi.GetComponent<Player>());
+        var player = pi.GetComponent<Player>();
+        
+        _onGameStopped.RemoveListener(player.DisableTemperature);
+        _onGameStarted.RemoveListener(player.EnableTemperature);
+        
         Debug.Log("Player left, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
         
-        if (_players.Count() < _minPlayers)
+        if (_players.Count < _minPlayers)
         {
             _state = GameState.WAITING_FOR_START;
         }
@@ -94,6 +112,9 @@ public class GameController : MonoBehaviour
                 // reset and initialize components
                 foreach (Player pi in _players)
                 {
+                    pi.Alive = true;
+                    pi.gameObject.SetActive(true);
+                    pi.GetComponent<PlayerTemperature>().ResetValues();
                     // reset health
                     // set position on map
                 }
@@ -104,6 +125,8 @@ public class GameController : MonoBehaviour
             case GameState.PLAYING:
                 // TODO: abstract this out to multiple gamemodes, possibly event for player dying
 
+                _onGameStarted.Invoke();
+                
                 int aliveCounter = 0;
                 foreach (Player pi in _players)
                 {
@@ -123,7 +146,7 @@ public class GameController : MonoBehaviour
                 _state = GameState.WAIT_FOR_NEXT_GAME;
                 break;
             case GameState.WAIT_FOR_NEXT_GAME:
-
+                
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -132,6 +155,8 @@ public class GameController : MonoBehaviour
 
     private IEnumerator GameWon()
     {
+        _onGameStopped.Invoke();
+        
         UIManager.INSTANCE.SetGameWon(true, _players.Find(x => x.Alive).Name);
         yield return new WaitForSeconds(_gameOverWaitTime);
         UIManager.INSTANCE.SetGameWon(false);

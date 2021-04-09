@@ -11,11 +11,12 @@ public class PlayerTemperature : MonoBehaviour
     [SerializeField] private float _temperature;
     [SerializeField] private float _health;
     [SerializeField] private float _debuff;
-    private Gradient _gradient;
 
     private Vector3 _prevPosition;
     private readonly UnityEvent<PositionData> _onPositionChanged;
     private readonly UnityEvent<string> _onPlayerDied;
+
+    public bool GameStarted = false;
     
     public void OnPlayerPositionChanged( UnityAction<PositionData> value )
     {
@@ -40,10 +41,11 @@ public class PlayerTemperature : MonoBehaviour
         FindObjectOfType<TemperatureHandlerBase>().OnPlayerRankingChanged(PlayerChanged);
         StartCoroutine(Damage());
     }
-
     
     private void Update()
     {
+        if(!GameStarted) return;
+        
         _temperature += _debuff * Time.deltaTime;
         Vector3 currentPosition = transform.position;
 
@@ -59,7 +61,6 @@ public class PlayerTemperature : MonoBehaviour
         _onPositionChanged.Invoke(position);
     }
     
-    
     IEnumerator Damage() 
     {
         while(true) 
@@ -74,6 +75,13 @@ public class PlayerTemperature : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    public void ResetValues()
+    {
+        _health = 100;
+        _debuff = 0;
+        _temperature = 0;
     }
     
     void PlayerChanged( Dictionary<string, float> changeDictionary )
