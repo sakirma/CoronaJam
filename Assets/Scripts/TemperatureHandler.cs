@@ -71,7 +71,7 @@ public class TemperatureHandler : MonoBehaviour
         using var positionKeys = _positions.Keys.GetEnumerator();
         using var debuffKeys = _debuffs.Keys.GetEnumerator();
 
-        var debuff = 0;
+        var debuff = 1;
         
         var changed = false;
         var rankedPositions = _distances.OrderBy(x => x.Value).ToList();
@@ -83,7 +83,7 @@ public class TemperatureHandler : MonoBehaviour
                 _debuffs[e.Key] = debuff;
                 changed = true;
             }
-            debuff -= 1;
+            debuff -= 2;
         });
         
         return changed;
