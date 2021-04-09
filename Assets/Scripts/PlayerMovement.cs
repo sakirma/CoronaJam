@@ -9,19 +9,13 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rigidbody;
 
-    [SerializeField] private float speed = 5;
-
-    private GameObject _directionSphere = null;
+    [SerializeField] private float speed = 100;
 
     private Vector3 _targetDirection;
-    public float force = 10f;
-
+    private float _axisMag;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _directionSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        _directionSphere.GetComponent<MeshRenderer>().material.color = Color.red;
-        _directionSphere.GetComponent<SphereCollider>().isTrigger = true;
     }
 
     // Input System
@@ -31,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 directionInput = context.ReadValue<Vector2>();
 
         _targetDirection = new Vector3(directionInput.x, 0, directionInput.y) * 2;
+        _axisMag = _targetDirection.sqrMagnitude;
     }
 
     // private float deadLock = 0.5f;
@@ -45,9 +40,8 @@ public class PlayerMovement : MonoBehaviour
         Transform selfTransforms = transform;
         Vector3 position = selfTransforms.position;
         Vector3 targetDirection = _targetDirection + position;
-        _directionSphere.transform.position = targetDirection;
 
-        _rigidbody.AddForce(selfTransforms.forward * 100, ForceMode.Acceleration);
+        _rigidbody.AddForce(selfTransforms.forward * (speed * _axisMag), ForceMode.Acceleration);
 
         Quaternion qTo = Quaternion.LookRotation(targetDirection - position);
         qTo = Quaternion.Slerp(transform.rotation, qTo, 0.1f);
