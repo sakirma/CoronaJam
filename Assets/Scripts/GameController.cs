@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController INSTANCE;
+    
     // playerlist
     private List<PlayerInput> _players = new List<PlayerInput>();
     
@@ -22,7 +26,9 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _state = GameState.WAITING_FOR_START;
+        INSTANCE = this;
+        
+        _state = GameState.WAITING_FOR_PLAYERS;
 
         _piManager = GetComponent<PlayerInputManager>();
         
@@ -32,37 +38,45 @@ public class GameController : MonoBehaviour
 
     private void OnPlayerJoined(PlayerInput pi)
     {
-        Debug.Log("Player joined, count: " + _players.Count);
         _players.Add(pi);
+        Debug.Log("Player joined, count: " + _players.Count);
+        Debug.Assert(_piManager.playerCount == _players.Count);
+
+        if (_players.Count() == _piManager.maxPlayerCount)
+        {
+            _state = GameState.WAITING_FOR_START;
+        }
     }
     
     private void OnPlayerLeft(PlayerInput pi)
     {
         _players.Remove(pi);
         Debug.Log("Player left, count: " + _players.Count);
+        Debug.Assert(_piManager.playerCount == _players.Count);
+        
+        if (_players.Count() < _piManager.maxPlayerCount)
+        {
+            _state = GameState.WAITING_FOR_START;
+        }
     }
-
+    
     // Update is called once per frame
     void Update()
     {
         switch (_state)
         {
+            case GameState.WAITING_FOR_PLAYERS:
+                // show text if not 4 players are in yet
+                UIManager.INSTANCE.SetWaitingForPlayers(true);
+                UIManager.INSTANCE.SetPressToStart(false);
+                break;
             case GameState.WAITING_FOR_START:
-                if (_piManager.playerCount < _piManager.maxPlayerCount)
-                {
-                    // show text if not 4 players are in yet
-                    UIManager.INSTANCE.SetWaitingForPlayers(true);
-                    UIManager.INSTANCE.SetPressToStart(false);
-                }
-                else
-                {
-                    // show "press A to start" if 4 players are in
-                    UIManager.INSTANCE.SetWaitingForPlayers(false);
-                    UIManager.INSTANCE.SetPressToStart(true);
+                // show "press A to start" if 4 players are in
+                UIManager.INSTANCE.SetWaitingForPlayers(false);
+                UIManager.INSTANCE.SetPressToStart(true);
                     
-                    // wait for input
-                    
-                }
+                // wait for input
+
                 break;
             case GameState.SETTING_UP:
                 UIManager.INSTANCE.SetWaitingForPlayers(false);
@@ -72,11 +86,20 @@ public class GameController : MonoBehaviour
                 break;
             case GameState.PLAYING:
                 // keep track of dead players
+                foreach (PlayerInput pi in _players)
+                {
+                    //pi.GetComponent<PlayerMovement>()
+                }
 
                 break;
             case GameState.GAME_WON:
                 // countdown timer to new game
                 StartCoroutine(GameWon());
+                
+                _state = GameState.WAIT_FOR_NEXT_GAME;
+                break;
+            case GameState.WAIT_FOR_NEXT_GAME:
+
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -91,9 +114,11 @@ public class GameController : MonoBehaviour
 
     private enum GameState
     {
-        WAITING_FOR_START = 0,
+        WAITING_FOR_PLAYERS = 0,
+        WAITING_FOR_START,
         SETTING_UP,
         PLAYING,
-        GAME_WON
+        GAME_WON,
+        WAIT_FOR_NEXT_GAME
     }
 }
