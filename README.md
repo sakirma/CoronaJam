@@ -12,6 +12,10 @@ Requires following Unity packages
 * Universal RP
 * Input System
 
+For running scenes
+* First map - art scene, hakan works in this
+* Technical main - development scene code, drag this into hierarchy to run game
+
 ## Architecture
 ### Gamemodes
 * StayHot (get close to the fire)
