@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 4810416011863770518}
   - component: {fileID: 4810416011863770519}
   - component: {fileID: 4810416011863770521}
-  - component: {fileID: -8075355724888100375}
   - component: {fileID: 452901935}
   - component: {fileID: 452901936}
   - component: {fileID: 452901928}
@@ -233,7 +232,7 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8075355724888100375}
+      - m_Target: {fileID: 452901936}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: StartGameInput
         m_Mode: 0
@@ -291,6 +290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb295470911c254388752b08033efdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pushDistance: 2
+  pushForce: 10
 --- !u!1 &4810416012338368993
 GameObject:
   m_ObjectHideFlags: 0
