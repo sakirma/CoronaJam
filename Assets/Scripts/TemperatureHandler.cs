@@ -50,7 +50,6 @@ public class TemperatureHandler : MonoBehaviour
     {
         if (CalculateDistance() && CalculateDebuffs())
         {
-            Debug.Log("Updating!");
             _onPlayerChanged.Invoke(_debuffs);
         }
     }
