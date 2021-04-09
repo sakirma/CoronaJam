@@ -9,12 +9,12 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rigidbody;
 
-    [SerializeField] private float speed = 100.0f;
+    [SerializeField] private float speed = 5;
 
     private GameObject _directionSphere = null;
 
     private Vector3 _targetDirection;
-    private Vector3 _lerpValue;
+    public float force = 10f;
 
     private void Awake()
     {
@@ -23,26 +23,34 @@ public class PlayerMovement : MonoBehaviour
         _directionSphere.GetComponent<MeshRenderer>().material.color = Color.red;
         _directionSphere.GetComponent<SphereCollider>().isTrigger = true;
     }
-    
+
     // Input System
     // ReSharper disable once UnusedMember.Global
     public void MoveInput(InputAction.CallbackContext context)
     {
         Vector2 directionInput = context.ReadValue<Vector2>();
-        Vector3 currentPosition = transform.position;
 
-        _targetDirection = new Vector3(directionInput.x, 0, directionInput.y) + currentPosition;
-        _directionSphere.transform.position = _targetDirection;
+        _targetDirection = new Vector3(directionInput.x, 0, directionInput.y) * 2;
     }
 
-    public void Update()
-    {
-        // _lerpValue = Vector3.Lerp();
-    }
-
+    // private float deadLock = 0.5f;
     public void FixedUpdate()
     {
-        // _rigidbody.AddRelativeForce(targetVelocity * speed);
-        // _rigidbody.AddRelativeTorque(torqueVelocity, ForceMode.VelocityChange);
+        if (_targetDirection.x <= 0.2f && _targetDirection.z <= 0.2f && _targetDirection.x >= -0.2f &&
+            _targetDirection.z >= -0.2f)
+        {
+            return;
+        }
+
+        Transform selfTransforms = transform;
+        Vector3 position = selfTransforms.position;
+        Vector3 targetDirection = _targetDirection + position;
+        _directionSphere.transform.position = targetDirection;
+
+        _rigidbody.AddForce(selfTransforms.forward * 100, ForceMode.Acceleration);
+
+        Quaternion qTo = Quaternion.LookRotation(targetDirection - position);
+        qTo = Quaternion.Slerp(transform.rotation, qTo, 0.1f);
+        _rigidbody.MoveRotation(qTo);
     }
 }

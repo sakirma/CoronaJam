@@ -11,3 +11,9 @@ Requires following Unity packages
 * Core RP Library
 * Universal RP
 * Input System
+
+## Architecture
+### Gamemodes
+* StayHot (get close to the fire)
+* TwoTwo (using 2 controllers total)
+* StayCold (stay away from the fire)
