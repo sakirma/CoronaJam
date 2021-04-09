@@ -10,3 +10,4 @@ April 2021 gamejam, participants:
 Requires following Unity packages
 * Core RP Library
 * Universal RP
+* Input System
