@@ -20,6 +20,11 @@ public class PlayerTemperature : MonoBehaviour
     {
         _onPositionChanged.AddListener( value );
     }
+
+    public PlayerTemperature()
+    {
+        _onPositionChanged ??= new UnityEvent<PositionData>();
+    }
     
     void Start()
     {
@@ -42,8 +47,6 @@ public class PlayerTemperature : MonoBehaviour
 
         _gradient.SetKeys(colorKey, alphaKey);
         GetComponent<MeshRenderer>().material.color = _gradient.Evaluate(0);
-        
-        _onPositionChanged ??= new UnityEvent<PositionData>();
         FindObjectOfType<TemperatureHandler>().OnPlayerRankingChanged(PlayerChanged);
     }
 
@@ -68,6 +71,6 @@ public class PlayerTemperature : MonoBehaviour
     
     void PlayerChanged( Dictionary<string, float> changeDictionary )
     {
-        _debuff = changeDictionary[ GetComponent<Player>().Name ];
+        _debuff = changeDictionary[GetComponent<Player>().Name];
     }
 }
