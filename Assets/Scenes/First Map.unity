@@ -1088,7 +1088,6 @@ GameObject:
   - component: {fileID: 1188529048}
   - component: {fileID: 1188529047}
   - component: {fileID: 1188529050}
-  - component: {fileID: 1188529051}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2488,6 +2487,10 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5655123993226665133, guid: b8126308feddde14b9ba71d860b36f2b, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 11c8a0ae6c5c9874695469f3f8d48683, type: 2}
     - target: {fileID: 7355897705943534926, guid: b8126308feddde14b9ba71d860b36f2b, type: 3}
       propertyPath: m_RootOrder
       value: 8
