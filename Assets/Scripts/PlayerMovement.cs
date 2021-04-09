@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 100;
 
     private Vector3 _targetDirection;
-    private float _axisMag;
+    private float _axisMagnitude;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -25,10 +25,9 @@ public class PlayerMovement : MonoBehaviour
         Vector2 directionInput = context.ReadValue<Vector2>();
 
         _targetDirection = new Vector3(directionInput.x, 0, directionInput.y) * 2;
-        _axisMag = _targetDirection.sqrMagnitude;
+        _axisMagnitude = _targetDirection.sqrMagnitude;
     }
 
-    // private float deadLock = 0.5f;
     public void FixedUpdate()
     {
         if (_targetDirection.x <= 0.2f && _targetDirection.z <= 0.2f && _targetDirection.x >= -0.2f &&
@@ -41,10 +40,17 @@ public class PlayerMovement : MonoBehaviour
         Vector3 position = selfTransforms.position;
         Vector3 targetDirection = _targetDirection + position;
 
-        _rigidbody.AddForce(selfTransforms.forward * (speed * _axisMag), ForceMode.Acceleration);
+        _rigidbody.AddForce(selfTransforms.forward * (speed * _axisMagnitude), ForceMode.Acceleration);
 
         Quaternion qTo = Quaternion.LookRotation(targetDirection - position);
-        qTo = Quaternion.Slerp(transform.rotation, qTo, 0.1f);
+        qTo = Quaternion.Slerp(transform.rotation, qTo, 0.2f);
         _rigidbody.MoveRotation(qTo);
+    }
+
+    public void Push(float pushForce, Vector3 fromPosition)
+    {
+        Vector3 pushDirection = transform.position - fromPosition;
+        
+        _rigidbody.AddForce(pushDirection.normalized * pushForce, ForceMode.Impulse);
     }
 }

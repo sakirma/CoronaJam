@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     
     [SerializeField] private Text _waitingForPlayers;
     [SerializeField] private Text _pressToStart;
+    [SerializeField] private Text _gamewon;
 
     private void Start()
     {
@@ -24,5 +25,11 @@ public class UIManager : MonoBehaviour
     public void SetPressToStart(bool value)
     {
         _pressToStart.gameObject.SetActive(value);
+    }
+
+    public void SetGameWon(bool value, string name = "")
+    {
+        _gamewon.text = "Game won by: " + name;
+        _gamewon.gameObject.SetActive(value);
     }
 }

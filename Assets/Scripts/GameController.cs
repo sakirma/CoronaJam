@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     public static GameController INSTANCE;
     
     // playerlist
-    private List<PlayerInput> _players = new List<PlayerInput>();
+    private List<Player> _players = new List<Player>();
     
     // keep track of active players (connected controllers)
     private PlayerInputManager _piManager; 
@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     
     // settings
     [SerializeField] private float _gameOverWaitTime = 5f;
+    [SerializeField] private int _minPlayers = 2;
     
     // Start is called before the first frame update
     void Start()
@@ -38,11 +39,11 @@ public class GameController : MonoBehaviour
 
     private void OnPlayerJoined(PlayerInput pi)
     {
-        _players.Add(pi);
+        _players.Add(pi.GetComponent<Player>());
         Debug.Log("Player joined, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
 
-        if (_players.Count() == _piManager.maxPlayerCount)
+        if (_players.Count() >= _minPlayers)
         {
             _state = GameState.WAITING_FOR_START;
         }
@@ -50,13 +51,22 @@ public class GameController : MonoBehaviour
     
     private void OnPlayerLeft(PlayerInput pi)
     {
-        _players.Remove(pi);
+        _players.Remove(pi.GetComponent<Player>());
         Debug.Log("Player left, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
         
-        if (_players.Count() < _piManager.maxPlayerCount)
+        if (_players.Count() < _minPlayers)
         {
             _state = GameState.WAITING_FOR_START;
+        }
+    }
+    
+    public void StartGameInput()
+    {
+        if (_state == GameState.WAITING_FOR_START)
+        {
+            Debug.Log("Starting game");
+            _state = GameState.SETTING_UP;
         }
     }
     
@@ -75,20 +85,34 @@ public class GameController : MonoBehaviour
                 UIManager.INSTANCE.SetWaitingForPlayers(false);
                 UIManager.INSTANCE.SetPressToStart(true);
                     
-                // wait for input
-
+                // event waits for input to start
                 break;
             case GameState.SETTING_UP:
                 UIManager.INSTANCE.SetWaitingForPlayers(false);
                 UIManager.INSTANCE.SetPressToStart(false);
                 
                 // reset and initialize components
+                foreach (Player pi in _players)
+                {
+                    // reset health
+                    // set position on map
+                }
+
+                _state = GameState.PLAYING;
+                
                 break;
             case GameState.PLAYING:
-                // keep track of dead players
-                foreach (PlayerInput pi in _players)
+                // TODO: abstract this out to multiple gamemodes, possibly event for player dying
+
+                int aliveCounter = 0;
+                foreach (Player pi in _players)
                 {
-                    //pi.GetComponent<PlayerMovement>()
+                    if (pi.Alive) aliveCounter++;
+                }
+
+                if (aliveCounter == 1)
+                {
+                    _state = GameState.GAME_WON;
                 }
 
                 break;
@@ -108,7 +132,9 @@ public class GameController : MonoBehaviour
 
     private IEnumerator GameWon()
     {
+        UIManager.INSTANCE.SetGameWon(true, _players.Find(x => x.Alive).Name);
         yield return new WaitForSeconds(_gameOverWaitTime);
+        UIManager.INSTANCE.SetGameWon(false);
         _state = GameState.SETTING_UP;
     }
 
