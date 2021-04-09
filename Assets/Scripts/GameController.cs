@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
     
     // playerlist
     private List<Player> _players = new List<Player>();
+
+    public List<Player> GetPlayers() { return _players;}
     
     // keep track of active players (connected controllers)
     private PlayerInputManager _piManager; 
