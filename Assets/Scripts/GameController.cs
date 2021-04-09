@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class GameController : MonoBehaviour
 {
     // playerlist
+    private List<PlayerInput> _players = new List<PlayerInput>();
     
     // keep track of active players (connected controllers)
     private PlayerInputManager _piManager; 
@@ -21,7 +22,24 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _state = GameState.WAITING_FOR_START;
+
+        _piManager = GetComponent<PlayerInputManager>();
         
+        _piManager.onPlayerJoined += OnPlayerJoined;
+        _piManager.onPlayerLeft += OnPlayerLeft;
+    }
+
+    private void OnPlayerJoined(PlayerInput pi)
+    {
+        Debug.Log("Player joined, count: " + _players.Count);
+        _players.Add(pi);
+    }
+    
+    private void OnPlayerLeft(PlayerInput pi)
+    {
+        _players.Remove(pi);
+        Debug.Log("Player left, count: " + _players.Count);
     }
 
     // Update is called once per frame
@@ -54,6 +72,7 @@ public class GameController : MonoBehaviour
                 break;
             case GameState.PLAYING:
                 // keep track of dead players
+
                 break;
             case GameState.GAME_WON:
                 // countdown timer to new game
