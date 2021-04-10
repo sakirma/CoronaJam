@@ -73,7 +73,7 @@ MonoBehaviour:
         m_Action: Join
         m_Flags: 0
     m_Reference: {fileID: 5066482231239225832, guid: a8c9026a1a55d4b4b907c42b08bf7eac, type: 3}
-  m_PlayerPrefab: {fileID: 4810416011863770512, guid: e92f7764672dd8d409c9cef40ac40be5, type: 3}
+  m_PlayerPrefab: {fileID: 999166969276400847, guid: 0f6d8fc17e23d6741b5b943344ec94c1, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -95,5 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1546452ee690443a8ef11909b6599d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skipWaiting: 0
   _gameOverWaitTime: 5
   _minPlayers: 2
+  _spawnsParent: {fileID: 0}

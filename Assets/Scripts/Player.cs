@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     
     [Header("Technical")]
     [SerializeField] private GameObject _onFireParticle;
+
+    [SerializeField] private SkinnedMeshRenderer playerModel;
+    [SerializeField] private Material[] playerMaterials; 
     
     [SerializeField] private string _name = "Player";
     [SerializeField] private bool _alive;
@@ -45,6 +48,16 @@ public class Player : MonoBehaviour
     public void StartGameInput(InputAction.CallbackContext context)
     {
         GameController.INSTANCE.StartGameInput();
+    }
+
+    public void SetupPlayer(PlayersEnum player)
+    {
+        Name = player.ToString();
+        
+        // TODO: different materials for the 4 players, enable once these materials are there
+        //playerModel.material = playerMaterials[(int)player];
+        
+        // TODO: different extra gameobjects that can be setactive or not (glasses, cap, etc.)
     }
 
     private void Start()
