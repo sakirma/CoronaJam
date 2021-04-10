@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour
             case GameState.SETTING_UP:
                 UIManager.INSTANCE.SetWaitingForPlayers(false);
                 UIManager.INSTANCE.SetPressToStart(false);
-                
+                     
                 // reset and initialize components
                 foreach (Player pi in _players)
                 {
@@ -118,14 +118,13 @@ public class GameController : MonoBehaviour
                     // reset health
                     // set position on map
                 }
-
+                
+                _onGameStarted.Invoke();
                 _state = GameState.PLAYING;
                 
                 break;
             case GameState.PLAYING:
                 // TODO: abstract this out to multiple gamemodes, possibly event for player dying
-
-                _onGameStarted.Invoke();
                 
                 int aliveCounter = 0;
                 foreach (Player pi in _players)
@@ -142,6 +141,7 @@ public class GameController : MonoBehaviour
             case GameState.GAME_WON:
                 // countdown timer to new game
                 StartCoroutine(GameWon());
+                _onGameStopped.Invoke();
                 
                 _state = GameState.WAIT_FOR_NEXT_GAME;
                 break;
@@ -155,8 +155,6 @@ public class GameController : MonoBehaviour
 
     private IEnumerator GameWon()
     {
-        _onGameStopped.Invoke();
-        
         UIManager.INSTANCE.SetGameWon(true, _players.Find(x => x.Alive).Name);
         yield return new WaitForSeconds(_gameOverWaitTime);
         UIManager.INSTANCE.SetGameWon(false);
