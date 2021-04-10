@@ -216,7 +216,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _temperature: 0
+  _health: 100
   _debuff: 0
+  GameStarted: 0
 --- !u!114 &-7546084601898017919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +289,22 @@ MonoBehaviour:
   pushForce: 10
   coolDownTime: 2
   collider: {fileID: 4401625606821426411}
+--- !u!111 &1865146553098015761
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269696743728205204}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 0}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &5476415113612672556
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +415,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c277b1384b77ec40998281eda44237e, type: 3}
+--- !u!1 &5269696743728205204 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2142145943329810129, guid: 6c277b1384b77ec40998281eda44237e, type: 3}
+  m_PrefabInstance: {fileID: 6096703080844520261}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4785753999880197934 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1653312331595644011, guid: 6c277b1384b77ec40998281eda44237e, type: 3}
