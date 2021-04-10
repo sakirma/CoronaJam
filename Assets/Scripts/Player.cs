@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     
     [Header("Technical")]
     [SerializeField] private GameObject _onFireParticle;
+
+    [SerializeField] private MeshRenderer playerModel;
+    [SerializeField] private Material[] playerMaterials; 
     
     [SerializeField] private string _name = "Player";
     [SerializeField] private bool _alive;
@@ -45,6 +48,12 @@ public class Player : MonoBehaviour
     public void StartGameInput(InputAction.CallbackContext context)
     {
         GameController.INSTANCE.StartGameInput();
+    }
+
+    public void SetupPlayer(PlayersEnum player)
+    {
+        Name = player.ToString();
+        playerModel.material = playerMaterials[(int)player];
     }
 
     private void Start()

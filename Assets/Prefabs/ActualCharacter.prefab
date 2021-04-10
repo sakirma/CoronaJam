@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 999166969276400838}
   - component: {fileID: -5334097866760410406}
   - component: {fileID: -7546084601898017919}
-  - component: {fileID: 337926393876505438}
   - component: {fileID: 2729992809353719532}
   m_Layer: 0
   m_Name: ActualCharacter
@@ -218,7 +217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _temperature: 0
-  _health: 100
   _debuff: 0
   GameStarted: 0
 --- !u!114 &-7546084601898017919
@@ -235,49 +233,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAX_ON_FIRE_TIME: 5
   _onFireParticle: {fileID: 8513375224860721706}
+  playerModel: {fileID: 5918087477219585089}
+  playerMaterials:
+  - {fileID: 2100000, guid: 6d2e16e65ea51ea49a883665f8a74edd, type: 2}
+  - {fileID: 2100000, guid: cb4101b01033d524e94299b854893ff9, type: 2}
+  - {fileID: 2100000, guid: 7b655b2a99897474c8c35ef34a80d134, type: 2}
+  - {fileID: 2100000, guid: df66334b35db1284bae9aa15560f396b, type: 2}
   _name: Huseyin
   _alive: 0
---- !u!23 &337926393876505438
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999166969276400847}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 257
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2729992809353719532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5322,6 +5285,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1653312331595644011, guid: 6c277b1384b77ec40998281eda44237e, type: 3}
   m_PrefabInstance: {fileID: 6096703080844520261}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &5918087477219585089 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 484860520190969604, guid: 6c277b1384b77ec40998281eda44237e, type: 3}
+  m_PrefabInstance: {fileID: 6096703080844520261}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &452901928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5352,5 +5320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAX_ON_FIRE_TIME: 5
   _onFireParticle: {fileID: 0}
+  playerModel: {fileID: 0}
+  playerMaterials: []
   _name: Huseyin
   _alive: 0

@@ -61,10 +61,12 @@ public class GameController : MonoBehaviour
         _onGameStateChanged ??= new UnityEvent<GameState>();
         _onGameStateChanged.AddListener(player.OnGameStateChanged);
 
+        player.SetupPlayer((PlayersEnum)_players.Count);
+
         TemperatureHandler.INSTANCE.AddPlayer(player);
         _players.Add(player);
         
-        Debug.Log("Player joined, count: " + _players.Count);
+        Debug.Log("Player joined, name: " + player.Name + ", count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
 
         if (_players.Count >= _minPlayers)
@@ -174,4 +176,12 @@ public class GameController : MonoBehaviour
         UIManager.INSTANCE.SetGameWon(false);
         _state = GameState.SETTING_UP;
     }
+}
+
+public enum PlayersEnum
+{
+    Huseyin,
+    David,
+    Storm,
+    Hakan
 }
