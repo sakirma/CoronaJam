@@ -8,15 +8,18 @@ using UnityEngine.Events;
 
 public class PlayerTemperature : MonoBehaviour
 {
+    // gets lowed if player not closest to fire, how much lower determined by debuff
     [SerializeField] private float _temperature;
-    [SerializeField] private float _health;
+    public float Temperature { get => _temperature; }
+    // determined by range to campfire
     [SerializeField] private float _debuff;
+    public bool ClosestToCampfire() { return _debuff > 0f;}
 
     private Vector3 _prevPosition;
     private readonly UnityEvent<PositionData> _onPositionChanged;
     private readonly UnityEvent<string> _onPlayerDied;
 
-    public bool GameStarted = false;
+    public bool GameStarted;
     
     public void OnPlayerPositionChanged( UnityAction<PositionData> value )
     {
@@ -27,19 +30,24 @@ public class PlayerTemperature : MonoBehaviour
     {
         _onPlayerDied.AddListener( value );
     }
+
+    public void KillPlayer()
+    {
+        var name = GetComponent<Player>().Name;
+        _onPlayerDied.Invoke(name);
+    }
     
     public PlayerTemperature()
     {
         _onPositionChanged ??= new UnityEvent<PositionData>();
         _onPlayerDied ??= new UnityEvent<string>();
-
-        _health = 100;
+        
+        _temperature = 40;
     }
     
     void Start()
     {
         FindObjectOfType<TemperatureHandlerBase>().OnPlayerRankingChanged(PlayerChanged);
-        StartCoroutine(Damage());
     }
     
     private void Update()
@@ -47,6 +55,7 @@ public class PlayerTemperature : MonoBehaviour
         if (!GameStarted) return;
         
         _temperature += _debuff * Time.deltaTime;
+        var player = GetComponent<Player>();
         
         Vector3 currentPosition = transform.position;
 
@@ -55,38 +64,20 @@ public class PlayerTemperature : MonoBehaviour
         PositionData position = new PositionData
         {
             Position = currentPosition,
-            PlayerName = GetComponent<Player>().Name
+            PlayerName = player.Name
         };
             
         _prevPosition = currentPosition;
         _onPositionChanged.Invoke(position);
-    }
-    
-    IEnumerator Damage() 
-    {
-        while(true) 
-        {
-            if (_debuff < 0) { _health += _debuff; }
 
-            if (_health < 1)
-            {
-                var name = GetComponent<Player>().Name;
-                _onPlayerDied.Invoke(name);
-                yield break;
-            }
-            yield return new WaitForSeconds(1f);
-        }
+        if (_temperature > 0 || !player.Alive) return;
+        _onPlayerDied.Invoke(player.Name);
     }
 
     public void ResetValues()
     {
-        _health = 100;
         _debuff = 0;
-        _temperature = 0;
-        
-        //Restart coroutine 
-        StopCoroutine(Damage());
-        StartCoroutine(Damage());
+        _temperature = 160;
     }
     
     void PlayerChanged( Dictionary<string, float> changeDictionary )

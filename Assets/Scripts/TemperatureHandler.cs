@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
-using Events;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class TemperatureHandler : TemperatureHandlerBase
 {
@@ -17,6 +14,13 @@ public class TemperatureHandler : TemperatureHandlerBase
         _temperatureRadius = 10;
         _maxDebuff = 5;
         _minDebuff = -5;
+        _debuffIncrements = 2;
+        
+        //Function is for testing purposes only
+        foreach (var player in FindObjectsOfType<Player>().ToList())
+        {
+            AddPlayer(player);
+        }
     }
 
     public void AddPlayer(Player p)
@@ -50,19 +54,20 @@ public class TemperatureHandler : TemperatureHandlerBase
         using var positionKeys = _positions.Keys.GetEnumerator();
         using var debuffKeys = _debuffs.Keys.GetEnumerator();
 
-        var debuff = _temperatureRadius;
+        var debuff = 1f;
         
         var changed = false;
-        var rankedPositions = _distances.OrderBy(x => x.Value).ToList();
+        var rankedPlayerDistance = _distances.OrderBy(x => x.Value).ToList();
         
-        rankedPositions.ForEach(e =>
+        rankedPlayerDistance.ForEach(e =>
         {
+            if (debuff < 0) { debuff += Mathf.Clamp(_temperatureRadius - e.Value - _debuffIncrements, -20, -1); }
             if (!_debuffs[e.Key].Equals(debuff))
             {
-                _debuffs[e.Key] = Mathf.Clamp(debuff - e.Value, _minDebuff, _maxDebuff);
+                _debuffs[e.Key] = debuff;
                 changed = true;
             }
-            debuff -= 2;
+            debuff -= _debuffIncrements;
         });
         
         return changed;

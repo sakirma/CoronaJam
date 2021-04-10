@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     //  what player is connected to what controller, sometimes 2 players on one controller
 
     private GameState _state;
+    [SerializeField]private bool _skipWaiting;
     
     // settings
     [SerializeField] private float _gameOverWaitTime = 5f;
@@ -29,17 +30,28 @@ public class GameController : MonoBehaviour
 
     private UnityEvent<GameState> _onGameStateChanged;
 
+    [SerializeField] private Transform _spawnsParent;
+    private List<Vector3> _spawns = new List<Vector3>();
+
     // Start is called before the first frame update
     void Start()
     {
         INSTANCE = this;
         
         _state = GameState.WAITING_FOR_PLAYERS;
-
+        if (_skipWaiting) _state = GameState.SETTING_UP;
+        
         _piManager = GetComponent<PlayerInputManager>();
         
         _piManager.onPlayerJoined += OnPlayerJoined;
         _piManager.onPlayerLeft += OnPlayerLeft;
+
+        // TODO: make this work for multiple maps
+        Transform[] spawnTransforms = _spawnsParent.GetComponentsInChildren<Transform>().Skip(1).ToArray(); // skip first since this shitty unity function isn't strict and includes itself
+        foreach (var t in spawnTransforms)
+        {
+            _spawns.Add(t.position);
+        }
     }
 
     private void OnPlayerJoined(PlayerInput pi)
@@ -49,10 +61,12 @@ public class GameController : MonoBehaviour
         _onGameStateChanged ??= new UnityEvent<GameState>();
         _onGameStateChanged.AddListener(player.OnGameStateChanged);
 
+        player.SetupPlayer((PlayersEnum)_players.Count);
+
         TemperatureHandler.INSTANCE.AddPlayer(player);
-        
         _players.Add(player);
-        Debug.Log("Player joined, count: " + _players.Count);
+        
+        Debug.Log("Player joined, name: " + player.Name + ", count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
 
         if (_players.Count >= _minPlayers)
@@ -87,6 +101,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UIManager.INSTANCE.SetDebug(true, _state.ToString(), "basic level", "default mode");
         switch (_state)
         {
             case GameState.WAITING_FOR_PLAYERS:
@@ -106,16 +121,23 @@ public class GameController : MonoBehaviour
                 UIManager.INSTANCE.SetPressToStart(false);
                 
                 _onGameStateChanged.Invoke(GameState.SETTING_UP);
-
-                // reset and initialize components
-                foreach (var pi in _players)
+                
+                //Function is for testing purposes only
+                if (_players.Count < 1)
                 {
-                    pi.Alive = true;
+                    _players = FindObjectsOfType<Player>().ToList();
+                }
+                
+                // reset and initialize components
+                for (int i = 0; i < _players.Count; i++)
+                {
+                    _players[i].Alive = true;
+                    // TODO: randomize spawn
+                    _players[i].transform.position = _spawns[i];
                     // reset health
                     // set position on map
                 }
-                
-               
+
                 _state = GameState.PLAYING;
                 
                 break;
@@ -128,7 +150,7 @@ public class GameController : MonoBehaviour
                     if (pi.Alive) aliveCounter++;
                 }
 
-                if (aliveCounter == 1) { _state = GameState.GAME_WON; }
+                if (aliveCounter <= 1) { _state = GameState.GAME_WON; }
 
                 break;
             case GameState.GAME_WON:
@@ -154,4 +176,12 @@ public class GameController : MonoBehaviour
         UIManager.INSTANCE.SetGameWon(false);
         _state = GameState.SETTING_UP;
     }
+}
+
+public enum PlayersEnum
+{
+    Huseyin,
+    David,
+    Storm,
+    Hakan
 }
