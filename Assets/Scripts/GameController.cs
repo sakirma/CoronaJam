@@ -30,6 +30,9 @@ public class GameController : MonoBehaviour
 
     private UnityEvent<GameState> _onGameStateChanged;
 
+    [SerializeField] private Transform _spawnsParent;
+    private List<Vector3> _spawns = new List<Vector3>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +45,13 @@ public class GameController : MonoBehaviour
         
         _piManager.onPlayerJoined += OnPlayerJoined;
         _piManager.onPlayerLeft += OnPlayerLeft;
+
+        // TODO: make this work for multiple maps
+        Transform[] spawnTransforms = _spawnsParent.GetComponentsInChildren<Transform>().Skip(1).ToArray(); // skip first since this shitty unity function isn't strict and includes itself
+        foreach (var t in spawnTransforms)
+        {
+            _spawns.Add(t.position);
+        }
     }
 
     private void OnPlayerJoined(PlayerInput pi)
@@ -115,16 +125,16 @@ public class GameController : MonoBehaviour
                 {
                     _players = FindObjectsOfType<Player>().ToList();
                 }
-
+                
                 // reset and initialize components
-                foreach (var pi in _players)
+                for (int i = 0; i < _players.Count; i++)
                 {
-                    pi.Alive = true;
+                    _players[i].Alive = true;
+                    _players[i].transform.position = _spawns[i];
                     // reset health
                     // set position on map
                 }
-                
-               
+
                 _state = GameState.PLAYING;
                 
                 break;
