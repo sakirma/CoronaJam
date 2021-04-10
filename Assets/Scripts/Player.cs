@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
                 temperature.ResetValues();
                 break;
             case GameState.GAME_WON:
-                temperature.StopCoroutine("Damage");
+                temperature.ResetValues();
                 temperature.GameStarted = false;
                 break;
             default:

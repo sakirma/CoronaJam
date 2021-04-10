@@ -34,6 +34,7 @@ public class PlayerTemperature : MonoBehaviour
         _onPlayerDied ??= new UnityEvent<string>();
 
         _health = 100;
+        _temperature = 50;
     }
     
     void Start()
@@ -82,7 +83,7 @@ public class PlayerTemperature : MonoBehaviour
     {
         _health = 100;
         _debuff = 0;
-        _temperature = 0;
+        _temperature = 50;
         
         //Restart coroutine 
         StopCoroutine(Damage());
