@@ -29,18 +29,25 @@ public class Player : MonoBehaviour
     {
         GetComponent<PlayerTemperature>().OnPlayerDied(PlayerDied);
     }
-
-    public void DisableTemperature()
-    {
-        var temperature = GetComponent<PlayerTemperature>();
-        temperature.GameStarted = false;
-    }
     
-    public void EnableTemperature()
+    
+    public void OnGameStateChanged(GameState state)
     {
         var temperature = GetComponent<PlayerTemperature>();
-        temperature.GameStarted = true;
-        temperature.ResetValues();
+        switch (state)
+        {
+            case GameState.SETTING_UP:
+                temperature.GameStarted = true;
+                temperature.ResetValues();
+                break;
+            case GameState.GAME_WON:
+                temperature.GameStarted = false;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(state), state, null);
+        }
+        
+   
     }
     
     private void PlayerDied(string name)
