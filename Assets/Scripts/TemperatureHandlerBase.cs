@@ -12,9 +12,10 @@ public abstract class TemperatureHandlerBase : MonoBehaviour
     protected PlayerChangeEvent _onPlayerChanged;
     protected UnityEvent<Vector3> _onObjectMoved;
 
-    protected float _temperatureRadius;
-    protected float _maxDebuff;
-    protected float _minDebuff;
+    
+    [SerializeField] protected float _temperatureRadius;
+    [SerializeField] protected float _maxDebuff;
+    [SerializeField] protected float _minDebuff;
     
     public void OnPlayerRankingChanged(UnityAction<Dictionary<string, float>> value)
     { 
