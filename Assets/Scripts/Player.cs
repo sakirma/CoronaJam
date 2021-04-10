@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [SerializeField] private string _name = "Player";
-    
-    private bool _alive;
+    [SerializeField] private bool _alive;
     public string Name
     {
         get => _name;
@@ -41,6 +40,7 @@ public class Player : MonoBehaviour
                 temperature.ResetValues();
                 break;
             case GameState.GAME_WON:
+                temperature.StopCoroutine("Damage");
                 temperature.GameStarted = false;
                 break;
             default:

@@ -40,14 +40,13 @@ public class GameController : MonoBehaviour
         
         _piManager.onPlayerJoined += OnPlayerJoined;
         _piManager.onPlayerLeft += OnPlayerLeft;
-
-        _onGameStateChanged = new UnityEvent<GameState>();
     }
 
     private void OnPlayerJoined(PlayerInput pi)
     {
         var player = pi.GetComponent<Player>();
-    
+
+        _onGameStateChanged ??= new UnityEvent<GameState>();
         _onGameStateChanged.AddListener(player.OnGameStateChanged);
 
         TemperatureHandler.INSTANCE.AddPlayer(player);
