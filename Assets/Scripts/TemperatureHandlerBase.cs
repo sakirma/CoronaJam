@@ -15,7 +15,7 @@ public abstract class TemperatureHandlerBase : MonoBehaviour
     [SerializeField] protected float _temperatureRadius;
     [SerializeField] protected float _maxDebuff;
     [SerializeField] protected float _minDebuff;
-    [Header("How much the debuff needs to get bigger the further away you are compared to your friends")]
+    [Header("Debuff gets bigger compared to your friends ranking")]
     [SerializeField] protected float _debuffIncrements;
     
     public void OnPlayerRankingChanged(UnityAction<Dictionary<string, float>> value)
