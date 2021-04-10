@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     }
 
     private bool _onFire;
-    private float _onFireTimer = 0f;
+    private float _onFireTimer;
     public bool OnFire
     {
         get => _onFire;

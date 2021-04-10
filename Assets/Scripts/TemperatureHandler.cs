@@ -50,7 +50,6 @@ public class TemperatureHandler : TemperatureHandlerBase
 
     private bool CalculateDebuffs()
     {
-        
         using var positionKeys = _positions.Keys.GetEnumerator();
         using var debuffKeys = _debuffs.Keys.GetEnumerator();
 
