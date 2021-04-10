@@ -216,7 +216,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _temperature: 0
-  _health: 100
   _debuff: 0
   GameStarted: 0
 --- !u!114 &-7546084601898017919
@@ -231,7 +230,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8200bbf6ccb494159a654e2234b55050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAX_ON_FIRE_TIME: 5
+  _onFireParticle: {fileID: 0}
+  playerModel: {fileID: 0}
+  playerMaterials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _name: Huseyin
+  _alive: 0
 --- !u!23 &337926393876505438
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -453,4 +461,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8200bbf6ccb494159a654e2234b55050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAX_ON_FIRE_TIME: 5
+  _onFireParticle: {fileID: 0}
+  playerModel: {fileID: 0}
+  playerMaterials: []
   _name: Huseyin
+  _alive: 0
