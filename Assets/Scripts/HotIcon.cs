@@ -6,15 +6,25 @@ using UnityEngine;
 public class HotIcon : MonoBehaviour
 {
     [SerializeField] private PlayerTemperature playerTemp;
-    private MeshRenderer mesh;
+    private ParticleSystem sys;
 
     private void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
+        sys = GetComponent<ParticleSystem>();
     }
 
     void Update()
     {
-        mesh.enabled = playerTemp.ClosestToCampfire();
+        if (playerTemp.ClosestToCampfire() != sys.isPlaying)
+        {
+            if (playerTemp.ClosestToCampfire())
+            {
+                sys.Play();
+            }
+            else
+            {
+                sys.Stop();
+            }
+        } 
     }
 }
