@@ -10,6 +10,7 @@ public class PlayerTemperature : MonoBehaviour
 {
     // gets lowed if player not closest to fire, how much lower determined by debuff
     [SerializeField] private float _temperature;
+    public float Temperature { get => _temperature; }
     [SerializeField] private float _health;
     // determined by range to campfire
     [SerializeField] private float _debuff;
@@ -29,6 +30,12 @@ public class PlayerTemperature : MonoBehaviour
     public void OnPlayerDied( UnityAction<string> value )
     {
         _onPlayerDied.AddListener( value );
+    }
+
+    public void KillPlayer()
+    {
+        var name = GetComponent<Player>().Name;
+        _onPlayerDied.Invoke(name);
     }
     
     public PlayerTemperature()
