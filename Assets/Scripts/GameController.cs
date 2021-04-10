@@ -53,6 +53,8 @@ public class GameController : MonoBehaviour
         _onGameStarted.AddListener(player.EnableTemperature);
         _onGameStopped.AddListener(player.DisableTemperature);
         
+        TemperatureHandler.INSTANCE.AddPlayer(player);
+        
         _players.Add(player);
         Debug.Log("Player joined, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
@@ -69,6 +71,8 @@ public class GameController : MonoBehaviour
         
         _onGameStopped.RemoveListener(player.DisableTemperature);
         _onGameStarted.RemoveListener(player.EnableTemperature);
+        
+        // TODO @Storm: remove player from temperaturehandler
         
         Debug.Log("Player left, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
@@ -113,7 +117,6 @@ public class GameController : MonoBehaviour
                 foreach (Player pi in _players)
                 {
                     pi.Alive = true;
-                    pi.gameObject.SetActive(true);
                     pi.GetComponent<PlayerTemperature>().ResetValues();
                     // reset health
                     // set position on map
