@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PushMask
+  m_Mask: 01000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: character
+    m_Weight: 0
+  - m_Path: ROOT
+    m_Weight: 0
+  - m_Path: ROOT/hip
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/head
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/head/headtip
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/R_clavicle
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/R_clavicle/R_upperarm
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/R_clavicle/R_upperarm/R_elbow
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/R_clavicle/R_upperarm/R_elbow/R_wrist
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/R_clavicle/R_upperarm/R_elbow/R_wrist/R_handtip
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/L_clavicle
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/L_clavicle/L_upperarm
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/L_clavicle/L_upperarm/L_elbow
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/L_clavicle/L_upperarm/L_elbow/L_wrist
+    m_Weight: 0
+  - m_Path: ROOT/hip/neck/L_clavicle/L_upperarm/L_elbow/L_wrist/L_handtip
+    m_Weight: 0
+  - m_Path: ROOT/hip/R_upperleg
+    m_Weight: 0
+  - m_Path: ROOT/hip/R_upperleg/R_shin
+    m_Weight: 0
+  - m_Path: ROOT/hip/R_upperleg/R_shin/ankle 1
+    m_Weight: 0
+  - m_Path: ROOT/hip/R_upperleg/R_shin/ankle 1/foottip 1
+    m_Weight: 0
+  - m_Path: ROOT/hip/L_upperleg
+    m_Weight: 0
+  - m_Path: ROOT/hip/L_upperleg/L_shin
+    m_Weight: 0
+  - m_Path: ROOT/hip/L_upperleg/L_shin/ankle
+    m_Weight: 0
+  - m_Path: ROOT/hip/L_upperleg/L_shin/ankle/foottip
+    m_Weight: 0
+  - m_Path: ROOT/R_armIK
+    m_Weight: 0
+  - m_Path: ROOT/L_armIK
+    m_Weight: 0
+  - m_Path: ROOT/L_legIK
+    m_Weight: 0
+  - m_Path: ROOT/R_legIK
+    m_Weight: 0
