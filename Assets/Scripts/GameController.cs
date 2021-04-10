@@ -130,6 +130,7 @@ public class GameController : MonoBehaviour
                 for (int i = 0; i < _players.Count; i++)
                 {
                     _players[i].Alive = true;
+                    // TODO: randomize spawn
                     _players[i].transform.position = _spawns[i];
                     // reset health
                     // set position on map
