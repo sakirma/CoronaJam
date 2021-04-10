@@ -35,7 +35,6 @@ public class TemperatureHandler : TemperatureHandlerBase
 
     private void RemovePlayer(string name)
     {
-        _debuffs.Remove(name);
         _distances.Remove(name);
         _positions.Remove(name);
     }
