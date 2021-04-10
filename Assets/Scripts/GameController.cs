@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     //  what player is connected to what controller, sometimes 2 players on one controller
 
     private GameState _state;
+    [SerializeField]private bool _skipWaiting;
     
     // settings
     [SerializeField] private float _gameOverWaitTime = 5f;
@@ -35,7 +36,8 @@ public class GameController : MonoBehaviour
         INSTANCE = this;
         
         _state = GameState.WAITING_FOR_PLAYERS;
-
+        if (_skipWaiting) _state = GameState.SETTING_UP;
+        
         _piManager = GetComponent<PlayerInputManager>();
         
         _piManager.onPlayerJoined += OnPlayerJoined;
@@ -50,8 +52,8 @@ public class GameController : MonoBehaviour
         _onGameStateChanged.AddListener(player.OnGameStateChanged);
 
         TemperatureHandler.INSTANCE.AddPlayer(player);
-        
         _players.Add(player);
+        
         Debug.Log("Player joined, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
 
@@ -106,6 +108,12 @@ public class GameController : MonoBehaviour
                 UIManager.INSTANCE.SetPressToStart(false);
                 
                 _onGameStateChanged.Invoke(GameState.SETTING_UP);
+                
+                //Function is for testing purposes only
+                if (_players.Count < 1)
+                {
+                    _players = FindObjectsOfType<Player>().ToList();
+                }
 
                 // reset and initialize components
                 foreach (var pi in _players)
@@ -128,7 +136,7 @@ public class GameController : MonoBehaviour
                     if (pi.Alive) aliveCounter++;
                 }
 
-                if (aliveCounter == 1) { _state = GameState.GAME_WON; }
+                if (aliveCounter <= 1) { _state = GameState.GAME_WON; }
 
                 break;
             case GameState.GAME_WON:

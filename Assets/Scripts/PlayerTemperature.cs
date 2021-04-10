@@ -8,15 +8,15 @@ using UnityEngine.Events;
 
 public class PlayerTemperature : MonoBehaviour
 {
+    [Header("range from 0 to 100")]
     [SerializeField] private float _temperature;
-    [SerializeField] private float _health;
     [SerializeField] private float _debuff;
 
     private Vector3 _prevPosition;
     private readonly UnityEvent<PositionData> _onPositionChanged;
     private readonly UnityEvent<string> _onPlayerDied;
 
-    public bool GameStarted = false;
+    public bool GameStarted;
     
     public void OnPlayerPositionChanged( UnityAction<PositionData> value )
     {
@@ -32,15 +32,13 @@ public class PlayerTemperature : MonoBehaviour
     {
         _onPositionChanged ??= new UnityEvent<PositionData>();
         _onPlayerDied ??= new UnityEvent<string>();
-
-        _health = 100;
-        _temperature = 50;
+        
+        _temperature = 40;
     }
     
     void Start()
     {
         FindObjectOfType<TemperatureHandlerBase>().OnPlayerRankingChanged(PlayerChanged);
-        StartCoroutine(Damage());
     }
     
     private void Update()
@@ -61,33 +59,17 @@ public class PlayerTemperature : MonoBehaviour
             
         _prevPosition = currentPosition;
         _onPositionChanged.Invoke(position);
-    }
-    
-    IEnumerator Damage() 
-    {
-        while(true) 
-        {
-            if (_debuff < 0) { _health += _debuff; }
 
-            if (_health < 1)
-            {
-                var name = GetComponent<Player>().Name;
-                _onPlayerDied.Invoke(name);
-                yield break;
-            }
-            yield return new WaitForSeconds(1f);
-        }
+        if (_temperature > 0) return;
+        
+        var name = GetComponent<Player>().Name;
+        _onPlayerDied.Invoke(name);
     }
 
     public void ResetValues()
     {
-        _health = 100;
         _debuff = 0;
-        _temperature = 50;
-        
-        //Restart coroutine 
-        StopCoroutine(Damage());
-        StartCoroutine(Damage());
+        _temperature = 160;
     }
     
     void PlayerChanged( Dictionary<string, float> changeDictionary )
