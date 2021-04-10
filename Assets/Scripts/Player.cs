@@ -42,8 +42,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-
     public void StartGameInput(InputAction.CallbackContext context)
     {
         GameController.INSTANCE.StartGameInput();

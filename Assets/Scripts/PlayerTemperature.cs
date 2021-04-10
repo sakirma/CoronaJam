@@ -11,7 +11,6 @@ public class PlayerTemperature : MonoBehaviour
     // gets lowed if player not closest to fire, how much lower determined by debuff
     [SerializeField] private float _temperature;
     public float Temperature { get => _temperature; }
-    [SerializeField] private float _health;
     // determined by range to campfire
     [SerializeField] private float _debuff;
     public bool ClosestToCampfire() { return _debuff > 0f;}
@@ -77,7 +76,6 @@ public class PlayerTemperature : MonoBehaviour
 
     public void ResetValues()
     {
-        _health = 100;
         _debuff = 0;
         _temperature = 160;
     }
