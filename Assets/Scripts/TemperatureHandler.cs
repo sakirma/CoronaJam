@@ -26,8 +26,18 @@ public class TemperatureHandler : TemperatureHandlerBase
     public void AddPlayer(Player p)
     {
         if (_debuffs.ContainsKey(p.Name)) { p.Name += _debuffs.Count; }
-        p.GetComponent<PlayerTemperature>().OnPlayerPositionChanged(PositionChanged);
+        var temperature = p.GetComponent<PlayerTemperature>();
+        temperature.OnPlayerPositionChanged(PositionChanged);
+        temperature.OnPlayerDied(RemovePlayer);
+        
         _debuffs.Add(p.Name, 0);
+    }
+
+    private void RemovePlayer(string name)
+    {
+        _debuffs.Remove(name);
+        _distances.Remove(name);
+        _positions.Remove(name);
     }
 
     private void Update()
@@ -50,7 +60,6 @@ public class TemperatureHandler : TemperatureHandlerBase
 
     private bool CalculateDebuffs()
     {
-        
         using var positionKeys = _positions.Keys.GetEnumerator();
         using var debuffKeys = _debuffs.Keys.GetEnumerator();
 

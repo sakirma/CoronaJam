@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [Header("Technical")]
     [SerializeField] private GameObject _onFireParticle;
 
-    [SerializeField] private MeshRenderer playerModel;
+    [SerializeField] private SkinnedMeshRenderer playerModel;
     [SerializeField] private Material[] playerMaterials; 
     
     [SerializeField] private string _name = "Player";
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     }
 
     private bool _onFire;
-    private float _onFireTimer = 0f;
+    private float _onFireTimer;
     public bool OnFire
     {
         get => _onFire;
@@ -53,7 +53,11 @@ public class Player : MonoBehaviour
     public void SetupPlayer(PlayersEnum player)
     {
         Name = player.ToString();
-        playerModel.material = playerMaterials[(int)player];
+        
+        // TODO: different materials for the 4 players, enable once these materials are there
+        //playerModel.material = playerMaterials[(int)player];
+        
+        // TODO: different extra gameobjects that can be setactive or not (glasses, cap, etc.)
     }
 
     private void Start()

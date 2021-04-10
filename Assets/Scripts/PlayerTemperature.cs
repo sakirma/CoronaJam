@@ -52,10 +52,16 @@ public class PlayerTemperature : MonoBehaviour
     
     private void Update()
     {
-        if (!GameStarted) return;
+        var player = GetComponent<Player>();
+        if (!GameStarted || !player.Alive) return;
+        if (_temperature < 0)
+        {
+            _onPlayerDied.Invoke(player.Name);
+            return;
+        }
         
         _temperature += _debuff * Time.deltaTime;
-        var player = GetComponent<Player>();
+        
         
         Vector3 currentPosition = transform.position;
 
@@ -70,8 +76,7 @@ public class PlayerTemperature : MonoBehaviour
         _prevPosition = currentPosition;
         _onPositionChanged.Invoke(position);
 
-        if (_temperature > 0 || !player.Alive) return;
-        _onPlayerDied.Invoke(player.Name);
+   
     }
 
     public void ResetValues()
