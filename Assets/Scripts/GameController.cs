@@ -118,14 +118,14 @@ public class GameController : MonoBehaviour
                     // reset health
                     // set position on map
                 }
+                
+                _onGameStarted.Invoke();
 
                 _state = GameState.PLAYING;
                 
                 break;
             case GameState.PLAYING:
                 // TODO: abstract this out to multiple gamemodes, possibly event for player dying
-
-                _onGameStarted.Invoke();
                 
                 int aliveCounter = 0;
                 foreach (Player pi in _players)
