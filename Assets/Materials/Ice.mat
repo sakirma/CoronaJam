@@ -20,11 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream:Assets/Shaders/Shader Graphs_Character.mat
-  m_Name: Shader Graphs_Character
-=======
-  m_Name: Character Material
->>>>>>> Stashed changes:Assets/Materials/Character Material.mat
+  m_Name: Ice
   m_Shader: {fileID: -6465566751694194690, guid: bb760246a482a504ab7ede52efdc36a6, type: 3}
   m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT
   m_LightmapFlags: 4
@@ -54,7 +50,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_4799bee92d9c4a29baa3b2c327a29359: 0
-    - Vector1_84e7de74ce7742e4bfaad95e09c839e5: 0
+    - Vector1_84e7de74ce7742e4bfaad95e09c839e5: 1
     - Vector1_a0891fb0f60f4e22ac25431e661bc729: 0
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
