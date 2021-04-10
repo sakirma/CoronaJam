@@ -44,9 +44,10 @@ public class PlayerTemperature : MonoBehaviour
     
     private void Update()
     {
-        if (!GameStarted) return;
-        
-        _temperature += _debuff * Time.deltaTime;
+        if (GameStarted)
+        {
+            _temperature += _debuff * Time.deltaTime;
+        }
 
         Vector3 currentPosition = transform.position;
 
@@ -67,7 +68,7 @@ public class PlayerTemperature : MonoBehaviour
         while(true) 
         {
             if (_debuff < 0) { _health += _debuff; }
-            
+
             if (_health < 1)
             {
                 var name = GetComponent<Player>().Name;

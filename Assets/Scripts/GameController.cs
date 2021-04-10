@@ -53,6 +53,8 @@ public class GameController : MonoBehaviour
         _onGameStarted.AddListener(player.EnableTemperature);
         _onGameStopped.AddListener(player.DisableTemperature);
         
+        TemperatureHandler.INSTANCE.AddPlayer(player);
+        
         _players.Add(player);
         Debug.Log("Player joined, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
@@ -69,6 +71,8 @@ public class GameController : MonoBehaviour
         
         _onGameStopped.RemoveListener(player.DisableTemperature);
         _onGameStarted.RemoveListener(player.EnableTemperature);
+        
+        // TODO @Storm: remove player from temperaturehandler
         
         Debug.Log("Player left, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
@@ -108,18 +112,18 @@ public class GameController : MonoBehaviour
             case GameState.SETTING_UP:
                 UIManager.INSTANCE.SetWaitingForPlayers(false);
                 UIManager.INSTANCE.SetPressToStart(false);
-                     
+                
                 // reset and initialize components
                 foreach (Player pi in _players)
                 {
                     pi.Alive = true;
-                    pi.gameObject.SetActive(true);
                     pi.GetComponent<PlayerTemperature>().ResetValues();
                     // reset health
                     // set position on map
                 }
                 
                 _onGameStarted.Invoke();
+
                 _state = GameState.PLAYING;
                 
                 break;
@@ -141,7 +145,6 @@ public class GameController : MonoBehaviour
             case GameState.GAME_WON:
                 // countdown timer to new game
                 StartCoroutine(GameWon());
-                _onGameStopped.Invoke();
                 
                 _state = GameState.WAIT_FOR_NEXT_GAME;
                 break;
@@ -155,6 +158,8 @@ public class GameController : MonoBehaviour
 
     private IEnumerator GameWon()
     {
+        _onGameStopped.Invoke();
+        
         UIManager.INSTANCE.SetGameWon(true, _players.Find(x => x.Alive).Name);
         yield return new WaitForSeconds(_gameOverWaitTime);
         UIManager.INSTANCE.SetGameWon(false);

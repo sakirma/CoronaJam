@@ -46,6 +46,9 @@ public class Player : MonoBehaviour
     
     private void PlayerDied(string name)
     {
+        Debug.Log(name + " Died!");
         _alive = false;
+        // set active messes with player controls
+        //gameObject.SetActive(false);
     }
 }
