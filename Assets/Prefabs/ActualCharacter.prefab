@@ -235,10 +235,10 @@ MonoBehaviour:
   _onFireParticle: {fileID: 8513375224860721706}
   playerModel: {fileID: 0}
   playerMaterials:
-  - {fileID: 2100000, guid: 6d2e16e65ea51ea49a883665f8a74edd, type: 2}
-  - {fileID: 2100000, guid: cb4101b01033d524e94299b854893ff9, type: 2}
-  - {fileID: 2100000, guid: df66334b35db1284bae9aa15560f396b, type: 2}
-  - {fileID: 2100000, guid: 7b655b2a99897474c8c35ef34a80d134, type: 2}
+  - {fileID: 2100000, guid: 86adf4a4201a8db4e816c81503c4272b, type: 2}
+  - {fileID: 2100000, guid: 86adf4a4201a8db4e816c81503c4272b, type: 2}
+  - {fileID: 2100000, guid: 86adf4a4201a8db4e816c81503c4272b, type: 2}
+  - {fileID: 2100000, guid: 86adf4a4201a8db4e816c81503c4272b, type: 2}
   _name: Huseyin
   _alive: 0
 --- !u!114 &2729992809353719532
