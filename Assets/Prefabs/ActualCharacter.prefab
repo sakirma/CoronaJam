@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: Huseyin
+  _alive: 0
 --- !u!23 &337926393876505438
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -302,13 +303,14 @@ GameObject:
   - component: {fileID: 5291425605909074288}
   - component: {fileID: 3618584480477994699}
   - component: {fileID: 769404503639076645}
+  - component: {fileID: 3944921893278209237}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: HotIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1536163253196897255
 Transform:
   m_ObjectHideFlags: 0
@@ -339,7 +341,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879549482723881714}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -350,7 +352,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: efe5130813a407547a3c473861f3378f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -385,6 +387,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3944921893278209237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879549482723881714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec52df0608052c344b4de5e68a1d3387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTemp: {fileID: -5334097866760410406}
 --- !u!1 &5476415113612672556
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,3 +544,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: Huseyin
+  _alive: 0

@@ -8,9 +8,12 @@ using UnityEngine.Events;
 
 public class PlayerTemperature : MonoBehaviour
 {
+    // gets lowed if player not closest to fire, how much lower determined by debuff
     [SerializeField] private float _temperature;
     [SerializeField] private float _health;
+    // determined by range to campfire
     [SerializeField] private float _debuff;
+    public bool ClosestToCampfire() { return _debuff > 0f;}
 
     private Vector3 _prevPosition;
     private readonly UnityEvent<PositionData> _onPositionChanged;
