@@ -89,6 +89,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UIManager.INSTANCE.SetDebug(true, _state.ToString(), "basic level", "default mode");
         switch (_state)
         {
             case GameState.WAITING_FOR_PLAYERS:

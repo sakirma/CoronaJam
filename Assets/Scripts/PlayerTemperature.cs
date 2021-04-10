@@ -8,9 +8,13 @@ using UnityEngine.Events;
 
 public class PlayerTemperature : MonoBehaviour
 {
-    [Header("range from 0 to 100")]
+    // gets lowed if player not closest to fire, how much lower determined by debuff
     [SerializeField] private float _temperature;
+    public float Temperature { get => _temperature; }
+    [SerializeField] private float _health;
+    // determined by range to campfire
     [SerializeField] private float _debuff;
+    public bool ClosestToCampfire() { return _debuff > 0f;}
 
     private Vector3 _prevPosition;
     private readonly UnityEvent<PositionData> _onPositionChanged;
@@ -26,6 +30,12 @@ public class PlayerTemperature : MonoBehaviour
     public void OnPlayerDied( UnityAction<string> value )
     {
         _onPlayerDied.AddListener( value );
+    }
+
+    public void KillPlayer()
+    {
+        var name = GetComponent<Player>().Name;
+        _onPlayerDied.Invoke(name);
     }
     
     public PlayerTemperature()
@@ -68,6 +78,7 @@ public class PlayerTemperature : MonoBehaviour
 
     public void ResetValues()
     {
+        _health = 100;
         _debuff = 0;
         _temperature = 160;
     }
