@@ -27,9 +27,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private float _gameOverWaitTime = 5f;
     [SerializeField] private int _minPlayers = 2;
 
-    private UnityEvent _onGameStopped;
-    private UnityEvent _onGameStarted;
-    
+    private UnityEvent<GameState> _onGameStateChanged;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,17 +41,15 @@ public class GameController : MonoBehaviour
         _piManager.onPlayerJoined += OnPlayerJoined;
         _piManager.onPlayerLeft += OnPlayerLeft;
 
-        _onGameStopped = new UnityEvent();
-        _onGameStarted = new UnityEvent();
+        _onGameStateChanged = new UnityEvent<GameState>();
     }
 
     private void OnPlayerJoined(PlayerInput pi)
     {
         var player = pi.GetComponent<Player>();
     
-        _onGameStarted.AddListener(player.EnableTemperature);
-        _onGameStopped.AddListener(player.DisableTemperature);
-        
+        _onGameStateChanged.AddListener(player.OnGameStateChanged);
+
         TemperatureHandler.INSTANCE.AddPlayer(player);
         
         _players.Add(player);
@@ -69,10 +66,7 @@ public class GameController : MonoBehaviour
     {
         var player = pi.GetComponent<Player>();
         
-        _onGameStopped.RemoveListener(player.DisableTemperature);
-        _onGameStarted.RemoveListener(player.EnableTemperature);
-        
-        // TODO @Storm: remove player from temperaturehandler
+        _onGameStateChanged.RemoveListener(player.OnGameStateChanged);
         
         Debug.Log("Player left, count: " + _players.Count);
         Debug.Assert(_piManager.playerCount == _players.Count);
@@ -112,6 +106,8 @@ public class GameController : MonoBehaviour
                 UIManager.INSTANCE.SetWaitingForPlayers(false);
                 UIManager.INSTANCE.SetPressToStart(false);
                 
+                _onGameStateChanged.Invoke(GameState.SETTING_UP);
+
                 // reset and initialize components
                 foreach (var pi in _players)
                 {
@@ -120,8 +116,7 @@ public class GameController : MonoBehaviour
                     // set position on map
                 }
                 
-                _onGameStarted.Invoke();
-
+               
                 _state = GameState.PLAYING;
                 
                 break;
@@ -134,15 +129,12 @@ public class GameController : MonoBehaviour
                     if (pi.Alive) aliveCounter++;
                 }
 
-                if (aliveCounter == 1)
-                {
-                    _state = GameState.GAME_WON;
-                }
+                if (aliveCounter == 1) { _state = GameState.GAME_WON; }
 
                 break;
             case GameState.GAME_WON:
                 
-                _onGameStopped.Invoke();
+                _onGameStateChanged.Invoke(GameState.GAME_WON);
                 // countdown timer to new game
                 StartCoroutine(GameWon());
                 
@@ -162,15 +154,5 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(_gameOverWaitTime);
         UIManager.INSTANCE.SetGameWon(false);
         _state = GameState.SETTING_UP;
-    }
-
-    private enum GameState
-    {
-        WAITING_FOR_PLAYERS = 0,
-        WAITING_FOR_START,
-        SETTING_UP,
-        PLAYING,
-        GAME_WON,
-        WAIT_FOR_NEXT_GAME
     }
 }

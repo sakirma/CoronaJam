@@ -10,9 +10,8 @@ public abstract class TemperatureHandlerBase : MonoBehaviour
     protected Dictionary<string, float> _distances;
     
     protected PlayerChangeEvent _onPlayerChanged;
-    protected UnityEvent<Vector3> _onObjectMoved;
 
-    
+
     [SerializeField] protected float _temperatureRadius;
     [SerializeField] protected float _maxDebuff;
     [SerializeField] protected float _minDebuff;
@@ -22,10 +21,6 @@ public abstract class TemperatureHandlerBase : MonoBehaviour
         _onPlayerChanged.AddListener(value);
     }
     
-    public UnityAction<Vector3> OnObjectMoved
-    {
-        set => _onObjectMoved.AddListener(value);
-    }
 
     protected TemperatureHandlerBase()
     {
@@ -34,7 +29,6 @@ public abstract class TemperatureHandlerBase : MonoBehaviour
         _distances = new Dictionary<string, float>();
         
         _onPlayerChanged ??= new PlayerChangeEvent();
-        _onObjectMoved ??= new UnityEvent<Vector3>();
     }
 
 }
