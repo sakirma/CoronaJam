@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _waitingForPlayers;
     [SerializeField] private Text _pressToStart;
     [SerializeField] private Text _gamewon;
+    [SerializeField] private Text _debug;
 
     private void Start()
     {
@@ -31,5 +32,13 @@ public class UIManager : MonoBehaviour
     {
         _gamewon.text = "Game won by: " + name;
         _gamewon.gameObject.SetActive(value);
+    }
+
+    public void SetDebug(bool value, string state, string level, string mode)
+    {
+        _debug.text = "State: " + state + "\n" +
+                        "Level: " + level + "\n" +
+                        "Mode: " + mode;
+        _debug.gameObject.SetActive(value);
     }
 }
