@@ -85,11 +85,10 @@ public class GameController : MonoBehaviour
     
     public void StartGameInput()
     {
-        if (_state == GameState.WAITING_FOR_START)
-        {
-            Debug.Log("Starting game");
-            _state = GameState.SETTING_UP;
-        }
+        if (_state != GameState.WAITING_FOR_START) return;
+        
+        Debug.Log("Starting game");
+        _state = GameState.SETTING_UP;
     }
     
     // Update is called once per frame
@@ -114,10 +113,9 @@ public class GameController : MonoBehaviour
                 UIManager.INSTANCE.SetPressToStart(false);
                 
                 // reset and initialize components
-                foreach (Player pi in _players)
+                foreach (var pi in _players)
                 {
                     pi.Alive = true;
-                    pi.GetComponent<PlayerTemperature>().ResetValues();
                     // reset health
                     // set position on map
                 }
@@ -143,6 +141,8 @@ public class GameController : MonoBehaviour
 
                 break;
             case GameState.GAME_WON:
+                
+                _onGameStopped.Invoke();
                 // countdown timer to new game
                 StartCoroutine(GameWon());
                 
@@ -158,8 +158,6 @@ public class GameController : MonoBehaviour
 
     private IEnumerator GameWon()
     {
-        _onGameStopped.Invoke();
-        
         UIManager.INSTANCE.SetGameWon(true, _players.Find(x => x.Alive).Name);
         yield return new WaitForSeconds(_gameOverWaitTime);
         UIManager.INSTANCE.SetGameWon(false);

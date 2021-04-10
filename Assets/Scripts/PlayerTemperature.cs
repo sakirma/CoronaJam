@@ -44,11 +44,10 @@ public class PlayerTemperature : MonoBehaviour
     
     private void Update()
     {
-        if (GameStarted)
-        {
-            _temperature += _debuff * Time.deltaTime;
-        }
-
+        if (!GameStarted) return;
+        
+        _temperature += _debuff * Time.deltaTime;
+        
         Vector3 currentPosition = transform.position;
 
         if (_prevPosition == currentPosition) return;
@@ -84,6 +83,10 @@ public class PlayerTemperature : MonoBehaviour
         _health = 100;
         _debuff = 0;
         _temperature = 0;
+        
+        //Restart coroutine 
+        StopCoroutine(Damage());
+        StartCoroutine(Damage());
     }
     
     void PlayerChanged( Dictionary<string, float> changeDictionary )

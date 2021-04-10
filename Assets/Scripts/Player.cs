@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     [SerializeField] private string _name = "Player";
     
     private bool _alive;
-    private bool _gameOver = false;
     public string Name
     {
         get => _name;
