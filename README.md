@@ -18,6 +18,6 @@ For running scenes
 
 ## Architecture
 ### Gamemodes
-* StayHot (get close to the fire)
+* StayWarm (get close to the fire)
 * TwoTwo (using 2 controllers total)
 * StayCold (stay away from the fire)
