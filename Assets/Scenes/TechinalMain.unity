@@ -130,14 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1837198784308676949, guid: dd71c6ed26e5aee448f48161851897b6, type: 3}
-      propertyPath: m_JoinBehavior
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837198784308676949, guid: dd71c6ed26e5aee448f48161851897b6, type: 3}
-      propertyPath: m_PlayerPrefab
-      value: 
-      objectReference: {fileID: 999166969276400847, guid: e92f7764672dd8d409c9cef40ac40be5, type: 3}
     - target: {fileID: 1837198784308676950, guid: dd71c6ed26e5aee448f48161851897b6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -181,10 +173,6 @@ PrefabInstance:
     - target: {fileID: 1837198784308676950, guid: dd71c6ed26e5aee448f48161851897b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837198784308676951, guid: dd71c6ed26e5aee448f48161851897b6, type: 3}
-      propertyPath: _minPlayers
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1837198784308676951, guid: dd71c6ed26e5aee448f48161851897b6, type: 3}
       propertyPath: _spawnsParent
