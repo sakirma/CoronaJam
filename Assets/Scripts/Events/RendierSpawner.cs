@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -32,10 +33,23 @@ public class RendierSpawner : MonoBehaviour
         Waypoint waypoint = currentWaypoints[Random.Range(0, currentWaypoints.Count)];
         obj.transform.position = waypoint.From;
 
-        Rigidbody rig = obj.GetComponent<Rigidbody>();
-        Vector3 dir = (waypoint.To - waypoint.From).normalized;
+        Vector3 to = waypoint.To;
+        Vector3 from = waypoint.From;
         
+        
+        Vector3 dir = (to - from).normalized;
+        Rigidbody rig = obj.GetComponent<Rigidbody>();
+
+
         obj.transform.LookAt(transform.position + dir);
-        rig.velocity = dir * crashSpeed;
+        StartCoroutine(LaunchDeer(rig, dir));
+    }
+
+    private IEnumerator LaunchDeer(Rigidbody rig, Vector3 dir)
+    {
+        yield return new WaitForSeconds(2f);
+        rig.velocity = dir * (crashSpeed * Random.Range(0.75f, 1f));
+        yield return new WaitForSeconds(5f);
+        Destroy(rig.gameObject);
     }
 }
