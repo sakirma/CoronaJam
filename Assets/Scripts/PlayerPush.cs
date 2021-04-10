@@ -7,14 +7,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerPush : MonoBehaviour
 {
-    [SerializeField] private float pushDistance = 1.0f;
     [SerializeField] private float pushForce = 10.0f;
     [SerializeField] private float coolDownTime = 2.0f;
-    [SerializeField] private SphereCollider collider;
-
+    [SerializeField] private Animator animator;
+    
+    
     private float _currentCooldown;
 
     private List<PlayerMovement> _playersToPush = new List<PlayerMovement>();
+    private static readonly int Push = Animator.StringToHash("Push");
 
     private void Awake()
     {
@@ -33,24 +34,13 @@ public class PlayerPush : MonoBehaviour
     {
         if (_currentCooldown > 0 && _playersToPush.Count == 0)
             return;
-
-        Transform curTransform = transform;
-        Vector3 forward = curTransform.forward;
-        Vector3 currentPos = curTransform.position;
-
-        // GameObject debugSphere =  GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        // debugSphere.GetComponent<SphereCollider>().isTrigger = true;
-        // debugSphere.transform.position = forward + currentPos;
-
-        // if (!Physics.SphereCast(currentPos, 1.0f, forward, out RaycastHit hitInfo, pushDistance)) return;
-        // PlayerMovement playerMovement = hitInfo.collider.GetComponent<PlayerMovement>();
-        // if(!playerMovement)
-        // return;
+        animator.SetTrigger(Push);
 
         foreach (PlayerMovement playerMovement in _playersToPush)
         {
             playerMovement.Push(pushForce, transform.position);
         }
+        
         _currentCooldown = coolDownTime;
     }
 

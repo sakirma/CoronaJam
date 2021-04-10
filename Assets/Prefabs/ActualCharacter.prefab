@@ -253,10 +253,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb295470911c254388752b08033efdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushDistance: 1
   pushForce: 10
   coolDownTime: 2
-  collider: {fileID: 4401625606821426411}
+  animator: {fileID: 8869601823733504131}
 --- !u!114 &5649721985618544702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,10 +610,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb295470911c254388752b08033efdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushDistance: 2
   pushForce: 20
   coolDownTime: 2
-  collider: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &452901936
 MonoBehaviour:
   m_ObjectHideFlags: 0
