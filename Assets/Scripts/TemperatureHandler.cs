@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
-using Events;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class TemperatureHandler : TemperatureHandlerBase
 {
@@ -64,7 +61,7 @@ public class TemperatureHandler : TemperatureHandlerBase
         
         rankedPlayerDistance.ForEach(e =>
         {
-            if (debuff < 0) { debuff += _temperatureRadius - e.Value; }
+            if (debuff < 0) { debuff += Mathf.Clamp(_temperatureRadius - e.Value - _debuffIncrements, -20, -1); }
             if (!_debuffs[e.Key].Equals(debuff))
             {
                 _debuffs[e.Key] = debuff;
