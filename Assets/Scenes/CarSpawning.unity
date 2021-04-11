@@ -794,7 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4c359cfcc17c143ae87d02da4f85f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 2
+  spawnTime: 5
   currentTime: 0
   reinDeer: {fileID: 6259940863694780811, guid: 42f0a4d88ae5a624c882975f5d942d60, type: 3}
   crashSpeed: 100
