@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,8 +7,10 @@ public class PlayerPush : MonoBehaviour
     [SerializeField] private float pushForce = 10.0f;
     [SerializeField] private float coolDownTime = 2.0f;
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioClip[] _audioClips;
     
     
+    private AudioSource _audioSource;
     private float _currentCooldown;
 
     private List<PlayerMovement> _playersToPush = new List<PlayerMovement>();
@@ -20,6 +19,7 @@ public class PlayerPush : MonoBehaviour
     private void Awake()
     {
         _currentCooldown = coolDownTime;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -35,6 +35,10 @@ public class PlayerPush : MonoBehaviour
         if (_currentCooldown > 0 && _playersToPush.Count == 0)
             return;
         animator.SetTrigger(Push);
+        int index = Random.Range(0, _audioClips.Length);
+        _audioSource.clip = _audioClips[index];
+        _audioSource.Play();
+
 
         foreach (PlayerMovement playerMovement in _playersToPush)
         {

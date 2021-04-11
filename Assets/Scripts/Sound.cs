@@ -8,7 +8,7 @@ public class Sound : MonoBehaviour
     {
         GetComponent<AudioSource>().clip = clip;
         GetComponent<AudioSource>().Play();
-
+        
         StartCoroutine(SelfDestroy(clip.length));
     }
 

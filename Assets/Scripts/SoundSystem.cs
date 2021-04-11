@@ -17,7 +17,7 @@ public class SoundSystem : MonoBehaviour
         PlaySound(ambientClip);
     }
 
-    public void PlaySound(AudioClip clip, float x = 0f, float y = 0f, float z = 0f)
+    public void PlaySound(AudioClip clip, float x = 0f, float y = 0f, float z = 0f, bool loop = false)
     {
         GameObject sound = Instantiate(soundPrefab, new Vector3(x, y, z), Quaternion.identity);
         sound.GetComponent<Sound>().Setup(clip);
